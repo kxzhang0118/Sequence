@@ -1,8 +1,4 @@
 #include"Sequence.h"
-#include<string>
-#include<fstream>
-#include<iostream>
-using namespace std;
 
 Sequence::Sequence(string filename)
 {
@@ -108,7 +104,49 @@ string Sequence::longestConsecutive()
     return s.substr(pb-c2+1,c2);
 }
 
+int pstrcmp(const void* ptr1,const void* ptr2)
+{
+    return strcmp(*(const char**)ptr1,*(const char**)ptr2);
+}
+
+int complement(char* ptr1,char* ptr2)
+{
+    int i=0;
+    while (ptr1[i]==ptr2[i++]);
+    return --i;
+}
+
 string Sequence::longestRepeated()
 {
+    string r;
+    char* a=new char[s.length()+100];
+    char** b=new char*[s.length()+100];
+    int c=-1;
+    int d=0;
+    int k=0;
 
+    while(k<s.length())
+    {
+     b[k]=&a[k];
+     a[k]=s[k++];
+    }
+
+    a[k]=0;
+    
+    qsort(b,k,sizeof(char*),pstrcmp);
+  
+    for(int m=0;m<s.length()-1;++m)
+    {
+     int i=complement(b[m],b[m+1]);
+     
+     if(i>c) 
+     {
+      c=i;
+      d=m;
+     }
+    }
+    r.assign(b[d],c); 
+    delete[]a;
+    delete[]b;
+    return r;
 }

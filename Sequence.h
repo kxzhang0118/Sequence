@@ -1,6 +1,10 @@
 #ifndef SEQUENCE_H
 #define SEQUENCE_H
+#include<cstdlib>
 #include<string>
+#include<cstring>
+#include<fstream>
+#include<iostream>
 using namespace std;
 
 class Sequence
